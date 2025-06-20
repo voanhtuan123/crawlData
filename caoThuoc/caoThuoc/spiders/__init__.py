@@ -1,226 +1,199 @@
 
-# import scrapy
+import scrapy
 
-# with open("caoThuoc/comments.json", "w", encoding="utf-8") as f:
-#     pass
+with open("caoThuoc/comments.json", "w", encoding="utf-8") as f:
+    pass
 
-# class spider(scrapy.Spider):
-#     name = 'caoThuoc' 
-#     start_urls = ['https://www.thuocbietduoc.com.vn/nhom-thuoc-1-0/thuoc-gay-te-me.aspx',
-#                 #   'https://www.thuocbietduoc.com.vn/nhom-thuoc-2-1/giam-dau-ha-sot-chong-viem.aspx',
-#                 #   'https://www.thuocbietduoc.com.vn/nhom-thuoc-3-2/thuoc-chong-di-ung.aspx',
-#                 #   'https://www.thuocbietduoc.com.vn/nhom-thuoc-4-3/thuoc-cap-cuu--giai-doc.aspx',
-#                 #   'https://www.thuocbietduoc.com.vn/nhom-thuoc-5-4/thuoc-huong-tam-than.aspx',
-#                 #   'https://www.thuocbietduoc.com.vn/nhom-thuoc-6-5/thuoc--tri-ky-sinh-trung-chong-nhiem-khuan.aspx',
-#                 #   'https://www.thuocbietduoc.com.vn/nhom-thuoc-7-6/dieu-tri-dau-nua-dau.aspx',
-#                 #   'https://www.thuocbietduoc.com.vn/nhom-thuoc-8-7/thuoc-chong-ung-thu.aspx',
-#                 #   'https://www.thuocbietduoc.com.vn/nhom-thuoc-9-8/thuoc-duong-tiet-nieu.aspx',
-#                 #   'https://www.thuocbietduoc.com.vn/nhom-thuoc-9-8/thuoc-duong-tiet-nieu.aspx',
-#                 #   'https://www.thuocbietduoc.com.vn/nhom-thuoc-11-10/tac-dung-doi-voi-mau.aspx',
-#                 #   'https://www.thuocbietduoc.com.vn/nhom-thuoc-12-11/mau-dung-dich-cao-phan-tu.aspx',
-#                 #   'https://www.thuocbietduoc.com.vn/nhom-thuoc-13-12/thuoc-tim-mach.aspx',
-#                 #   'https://www.thuocbietduoc.com.vn/nhom-thuoc-14-13/thuoc-tri-benh-da-lieu.aspx',
-#                 #   'https://www.thuocbietduoc.com.vn/nhom-thuoc-15-14/thuoc-dung-chan-doan.aspx',
-#                 #   'https://www.thuocbietduoc.com.vn/nhom-thuoc-16-15/thuoc-sat-khuan.aspx',
-#                 #   'https://www.thuocbietduoc.com.vn/nhom-thuoc-17-16/thuoc-loi-tieu.aspx',
-#                 #   'https://www.thuocbietduoc.com.vn/nhom-thuoc-18-17/thuoc-duong-tieu-hoa.aspx',
-#                 #   'https://www.thuocbietduoc.com.vn/nhom-thuoc-19-18/hocmon-noi-tiet-to.aspx',
-#                 #   'https://www.thuocbietduoc.com.vn/nhom-thuoc-20-19/huyet-thanh--globulin-mien-dich.aspx',
-#                 #   'https://www.thuocbietduoc.com.vn/nhom-thuoc-21-20/thuoc-gian-co-va-tang-truong-luc-co.aspx',
-#                 #   'https://www.thuocbietduoc.com.vn/nhom-thuoc-22-21/thuoc--mat-tai-mui-hong.aspx',
-#                 #   'https://www.thuocbietduoc.com.vn/nhom-thuoc-23-22/thuoc-co-tac-dung-thuc-de.aspx',
-#                 #   'https://www.thuocbietduoc.com.vn/nhom-thuoc-24-23/dd-tham-phan-phuc-mac.aspx',
-#                 #   'https://www.thuocbietduoc.com.vn/nhom-thuoc-25-24/thuoc-ho-hap.aspx',
-#                 #   'https://www.thuocbietduoc.com.vn/nhom-thuoc-26-25/dd-dieu-chinh-nuoc-dien-giai.aspx',
-#                 #   'https://www.thuocbietduoc.com.vn/nhom-thuoc-27-26/khoang-chat-va-vitamin.aspx',
-#                   ]
+class spider(scrapy.Spider):
+    name = 'caoThuoc' 
+    start_urls = ['https://www.thuocbietduoc.com.vn/nhom-thuoc-1-0/thuoc-gay-te-me.aspx',
+                  ]
     
-#     names = set()
-#     links = set()
+    names = set()
+    links = set()
 
 
-#     def parse(self, response):
+    def parse(self, response):
 
 
-#         for  products in response.css('h2'):
-#             name = products.css('a.textlink01_v::text').get().strip()
-#             link = response.urljoin(products.css('a.textlink01_v::attr(href)').get())
+        for  products in response.css('h2'):
+            name = products.css('a.textlink01_v::text').get().strip()
+            link = response.urljoin(products.css('a.textlink01_v::attr(href)').get())
 
-#             if name in self.names or 'test' in name.lower():
-#                 continue
-#             self.names.add(name)
+            if name in self.names or 'test' in name.lower():
+                continue
+            self.names.add(name)
 
-#             if link in self.links:
-#                 continue
-#             self.links.add(link)
+            if link in self.links:
+                continue
+            self.links.add(link)
 
-#             yield response.follow(
-#                  link,
-#                  callback=self.parse_detail,
-#                  meta={'name': name, 'url': link}
-#                 )
+            yield response.follow(
+                 link,
+                 callback=self.parse_detail,
+                 meta={'name': name, 'url': link}
+                )
             
-#         current_page = int(response.meta.get('page', 1)) 
-#         viewstate = response.xpath('//input[@id="__VIEWSTATE"]/@value').get()
+        current_page = int(response.meta.get('page', 1)) 
+        viewstate = response.xpath('//input[@id="__VIEWSTATE"]/@value').get()
         
-#         next_page_link = response.xpath(f'//a[contains(@href, "setValue({current_page + 1},")]/@href').get()
+        next_page_link = response.xpath(f'//a[contains(@href, "setValue({current_page + 1},")]/@href').get()
         
-#         if next_page_link:
-#             yield scrapy.FormRequest(
-#                 url=response.url,
-#                 formdata={
-#                     '__VIEWSTATE': viewstate,
-#                     'page': str(current_page + 1),
-#                     'currentView': '1'
-#                 },
-#                 callback=self.parse,
-#                 meta={'page': current_page + 1}
-#             )
+        if next_page_link:
+            yield scrapy.FormRequest(
+                url=response.url,
+                formdata={
+                    '__VIEWSTATE': viewstate,
+                    'page': str(current_page + 1),
+                    'currentView': '1'
+                },
+                callback=self.parse,
+                meta={'page': current_page + 1}
+            )
             
-#     def parse_detail(self,response):
-#         name = response.meta['name']
-#         url = response.meta['url']
+    def parse_detail(self,response):
+        name = response.meta['name']
+        url = response.meta['url']
 
-#         for details in response.css('span.textdetaildrgI'):
-#             thanh_phan = details.css('a.texttplink::text').getall() + self.extract_components(response.css('span.textdetaildrgI::text').getall())
-#             merged = []
-#         for item in thanh_phan:
-#             if item.startswith('(') or item.endswith(')'):
-#                 if merged:
-#                     merged[-1] += " " + item
-#                 else:
-#                     merged.append(item)
-#             else:
-#                 merged.append(item)
-                        
+        for details in response.css('span.textdetaildrgI'):
+            thanh_phan = details.css('a.texttplink::text').getall() + self.extract_components(response.css('span.textdetaildrgI::text').getall())
+            merged = []
+        for item in thanh_phan:
+            if item.startswith('(') or item.endswith(')'):
+                if merged:
+                    merged[-1] += " " + item
+                else:
+                    merged.append(item)
 
-#         nhom_thuoc = response.css('a.textdetaillink::text').get()
-#         dang_bao_che = response.xpath('//span[@class="textdetailhead1"][contains(text(), "Dạng bào chế")]/following-sibling::span[@class="textdetaildrg"]/text()').get()
-#         SDK = response.xpath('//span[@class="textdetailhead1"][contains(text(), "SĐK:")]/following-sibling::span[@class="textdetaildrg"]/text()').get()
-#         dong_goi = response.xpath('//span[@class="textdetailhead1"][contains(text(), "Đóng gói:")]/following-sibling::span[@class="textdetaildrg"]/text()').get()
-#         nha_san_xuat = response.css('span.compst_link01_s1b::text').get()
-#         nha_dang_ki = response.css('span.compst_link01_s2b::text').get()
+            elif len(thanh_phan) == 2 and item == "hydroclorid":
+                if merged:
+                    merged[-1] += " " + item
+                else:
+                    merged.append(item)
+            else:
+                merged.append(item)
 
-#         chi_dinh = None
-#         chi_dinh = self.extract_content(response.xpath('//section[@id="chi-dinh"]'))
+            
 
-#             # chi_dinh_sections_0 = response.xpath('//section[@id="chi-dinh-0"]')
-#             # chi_dinh_sections_1 = response.xpath('//section[@id="chi-dinh-1"]')
-#             # if chi_dinh_sections_0 and chi_dinh_sections_1:
-#             #     raw_text = chi_dinh_sections.css('div.textdetaildrg1 div div::text').getall() 
+        nhom_thuoc = response.css('a.textdetaillink::text').get()
+        dang_bao_che = response.xpath('//span[@class="textdetailhead1"][contains(text(), "Dạng bào chế")]/following-sibling::span[@class="textdetaildrg"]/text()').get()
+        SDK = response.xpath('//span[@class="textdetailhead1"][contains(text(), "SĐK:")]/following-sibling::span[@class="textdetaildrg"]/text()').get()
+        dong_goi = response.xpath('//span[@class="textdetailhead1"][contains(text(), "Đóng gói:")]/following-sibling::span[@class="textdetaildrg"]/text()').get()
+        nha_san_xuat = response.css('span.compst_link01_s1b::text').get()
+        nha_dang_ki = response.css('span.compst_link01_s2b::text').get()
 
-#             #     if not raw_text:
-#             #         raw_text = chi_dinh_sections.css('div.textdetaildrg1 div::text').getall()
+        chi_dinh = None
+        chi_dinh = self.extract_content(response.xpath('//section[@id="chi-dinh"]'))
 
-#             #     if not raw_text: 
-#             #         raw_text = chi_dinh_sections.css('div.textdetaildrg1::text').getall()
+            # chi_dinh_sections_0 = response.xpath('//section[@id="chi-dinh-0"]')
+            # chi_dinh_sections_1 = response.xpath('//section[@id="chi-dinh-1"]')
+            # if chi_dinh_sections_0 and chi_dinh_sections_1:
+            #     raw_text = chi_dinh_sections.css('div.textdetaildrg1 div div::text').getall() 
 
-#             #     chi_dinh = self.clean_text(raw_text)
-#             # if not chi_dinh_sections: 
-#             #      chi_dinh = None
+            #     if not raw_text:
+            #         raw_text = chi_dinh_sections.css('div.textdetaildrg1 div::text').getall()
 
+            #     if not raw_text: 
+            #         raw_text = chi_dinh_sections.css('div.textdetaildrg1::text').getall()
 
-#         lieu_luong_cach_dung_section = response.xpath('//section[@id="cach-dung"]')
-#         if lieu_luong_cach_dung_section :
-#             raw_text = lieu_luong_cach_dung_section.css('div.textdetaildrg1 div div::text').getall() 
-
-#             if not raw_text:
-#                  raw_text = lieu_luong_cach_dung_section.css('div.textdetaildrg1 div::text').getall()
-
-#             if not raw_text: 
-#                  raw_text = lieu_luong_cach_dung_section.css('div.textdetaildrg1::text').getall()
-#             lieu_luong_cach_dung = self.clean_text(raw_text)
-#         if not lieu_luong_cach_dung_section:
-#              lieu_luong_cach_dung = None
+            #     chi_dinh = self.clean_text(raw_text)
+            # if not chi_dinh_sections: 
+            #      chi_dinh = None
 
 
-#         chong_chi_dinh = None
-#         chong_chi_dinh = self.extract_content(response.xpath('//section[@id="chong-chi-dinh"]'))
+        lieu_luong_cach_dung_section = response.xpath('//section[@id="cach-dung"]')
+        if lieu_luong_cach_dung_section :
+            raw_text = lieu_luong_cach_dung_section.css('div.textdetaildrg1 div div::text').getall() 
 
-#         tac_dung_phu = None 
-#         tac_dung_phu = self.extract_content(response.xpath('//section[@id="tac-dung-phu"]'))
+            if not raw_text:
+                 raw_text = lieu_luong_cach_dung_section.css('div.textdetaildrg1 div::text').getall()
 
-#         de_phong = None
-#         de_phong = self.extract_content(response.xpath('//section[@id="de-phong"]'))
+            if not raw_text: 
+                 raw_text = lieu_luong_cach_dung_section.css('div.textdetaildrg1::text').getall()
+            lieu_luong_cach_dung = self.clean_text(raw_text)
+        if not lieu_luong_cach_dung_section:
+             lieu_luong_cach_dung = None
 
-#         bao_quan = None
-#         bao_quan = self.extract_content(response.xpath('//section[@id="bao-quan"]'))
+
+        chong_chi_dinh = None
+        chong_chi_dinh = self.extract_content(response.xpath('//section[@id="chong-chi-dinh"]'))
+
+        tac_dung_phu = None 
+        tac_dung_phu = self.extract_content(response.xpath('//section[@id="tac-dung-phu"]'))
+
+        de_phong = None
+        de_phong = self.extract_content(response.xpath('//section[@id="de-phong"]'))
+
+        bao_quan = None
+        bao_quan = self.extract_content(response.xpath('//section[@id="bao-quan"]'))
         
 
 
-#             # chong_chi_dinh =
-#             # tuong_tac_thuoc = 
-#             # tac_dung_phu = 
-#             # chu_y_de_phong = 
-#             # cong_dung =
-#             # doi_tuong_su_dung = 
-#             # cach_dung = 
 
-
-#         yield{
-#                 'nhom_thuoc': nhom_thuoc,
-#                 'ten_thuoc': name,
-#                 'dang_bao_che': dang_bao_che or 'None',
-#                 'dong_goi': dong_goi or 'None',
-#                 'thanh_phan': self.clean_text(merged),
-#                 'SDK': SDK,
-#                 'nha_san_xuat': nha_san_xuat,
-#                 'nha_dang_ki': nha_dang_ki,
-#                 'chi_dinh': chi_dinh,
-#                 'lieu_luong_va_cach_dung':lieu_luong_cach_dung,
-#                 'chong_chi_dinh':chong_chi_dinh,
-#                 'tac_dung_phu': tac_dung_phu,
-#                 'de_phong': de_phong,
-#                 'bao_quan': bao_quan,
-#             }
+        yield{
+                'nhom_thuoc': nhom_thuoc,
+                'ten_thuoc': name,
+                'dang_bao_che': dang_bao_che or 'None',
+                'dong_goi': dong_goi or 'None',
+                'thanh_phan': self.clean_text(merged),
+                'SDK': SDK,
+                'nha_san_xuat': nha_san_xuat,
+                'nha_dang_ki': nha_dang_ki,
+                'chi_dinh': chi_dinh,
+                'lieu_luong_va_cach_dung':lieu_luong_cach_dung,
+                'chong_chi_dinh':chong_chi_dinh,
+                'tac_dung_phu': tac_dung_phu,
+                'de_phong': de_phong,
+                'bao_quan': bao_quan,
+            }
 
 
 
-#     def extract_components(self,set):
-#         components = []
-#         component = None
+    def extract_components(self,set):
+        components = []
+        component = None
 
-#         if not set:
-#                 return []
+        if not set:
+                return []
         
-#         for i in set:
-#                 lines = i.split(';')
-#                 for line in lines:
-#                         if not line.strip('.') or ':' in line:
-#                                 continue
-#                         cleaned_line = line.replace('…', '').replace('.', '')
-#                         if cleaned_line[0].isdigit(): 
-#                                 continue
-#                         num_start = None
-#                         for j, char in enumerate(cleaned_line):
-#                                 if char.isdigit():
-#                                         num_start = j
-#                                         break
-#                         if num_start is not None:
-#                             component = cleaned_line[:num_start].strip()
-#                             if component:
-#                                 components.append(component)
-#         return components
+        for i in set:
+                lines = i.split(';')
+                for line in lines:
+                        if not line.strip('.') or ':' in line:
+                                continue
+                        cleaned_line = line.replace('…', '').replace('.', '')
+                        if cleaned_line[0].isdigit(): 
+                                continue
+                        num_start = None
+                        for j, char in enumerate(cleaned_line):
+                                if char.isdigit():
+                                        num_start = j
+                                        break
+                        if num_start is not None:
+                            component = cleaned_line[:num_start].strip()
+                            if component:
+                                components.append(component)
+        return components
     
 
-#     def clean_text(self,set):
-#         if not set:
-#             return None
-#         cleaned = [text.strip() for text in set if text.strip()]
-#         return "\n".join(cleaned) if cleaned else None
+    def clean_text(self,set):
+        if not set:
+            return None
+        cleaned = [text.strip() for text in set if text.strip()]
+        return "\n".join(cleaned) if cleaned else None
     
     
-#     def extract_content(self, section):
-#          raw_text = None
-#          if section:
-#             raw_text = section.css('div.textdetaildrg1 div div::text').getall() 
-#             if not raw_text:
-#                  raw_text = section.css('div.textdetaildrg1 div::text').getall()
-#             if not raw_text: 
-#                  raw_text = section.css('div.textdetaildrg1::text').getall()
-#             return self.clean_text(raw_text)
-#          if not section:
-#              return None
+    def extract_content(self, section):
+         raw_text = None
+         if section:
+            raw_text = section.css('div.textdetaildrg1 div div::text').getall() 
+            if not raw_text:
+                 raw_text = section.css('div.textdetaildrg1 div::text').getall()
+            if not raw_text: 
+                 raw_text = section.css('div.textdetaildrg1::text').getall()
+            return self.clean_text(raw_text)
+         if not section:
+             return None
          
 
 

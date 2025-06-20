@@ -5,7 +5,7 @@ from pymongo import MongoClient
 
 MONGO_URI = "mongodb://localhost:27017/"
 DATABASE_NAME = "ThuocBietDuoc2"
-JSON_FOLDER = "/Users/vohaison/Documents/crawlData/caoThuoc/caoThuoc/save"
+JSON_FOLDER = "/Users/vohaison/Documents/crawlData/caoThuoc/caoThuoc/caoThuoc/save"
 
 client = MongoClient(MONGO_URI)
 db = client[DATABASE_NAME]

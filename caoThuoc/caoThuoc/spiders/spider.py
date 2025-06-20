@@ -175,7 +175,7 @@ class spider(scrapy.Spider):
         import re
         
         # Create directory if it doesn't exist
-        os.makedirs("caoThuoc/caoThuoc/save", exist_ok=True)
+        os.makedirs("/Users/vohaison/Documents/crawlData/caoThuoc/caoThuoc/save", exist_ok=True)
         
         for category_name, medicines in self.categories.items():
             # Clean category name for filename (remove special characters)
